@@ -23,7 +23,7 @@ const lastName = faker.person.lastName();
 const postalCode = faker.location.zipCode();
 
 /**
- * login
+ * function to login
  * @param page - The Playwright page object.
  * @param username - the username of the user
  * @param password - the password of the user
@@ -40,6 +40,37 @@ async function login(page: Page, username: string, password: string) {
    * wait for page to stabilize after login
    */
   await page.waitForLoadState("networkidle");
+}
+
+/**
+ * hovers over a product item and adds it to the cart.
+ * This function simulates the user experience of hovering over an item
+ * before adding it to the cart, as specified in the assignment requirements.
+ * @param page - The Playwright page object.
+ * @param itemSelector - CSS selector for the inventory item.
+ */
+async function hoverAndAddToCart(page: Page, itemSelector: string) {
+  /**
+   * locate the inventory item using the provided selector
+   */
+  const item = page.locator(itemSelector);
+
+  /**
+   * hover over the item to simulate user interaction
+   */
+  await item.hover();
+
+  /**
+   * after hovering, locate the "Add to Cart" button within the item container
+   */
+  const addToCartButton = item.locator(".btn_primary.btn_inventory");
+
+  /**
+   * click the "Add to Cart" button
+   * waitFor to ensure the button is clickable after hovering
+   */
+  await addToCartButton.waitFor({ state: "visible" });
+  await addToCartButton.click();
 }
 
 /**
@@ -182,9 +213,9 @@ test.describe("Swag Labs Test Suite", () => {
      * add three items to the cart
      */
 
-    await page.click(".btn_primary.btn_inventory");
-    await page.click(":nth-match(.btn_primary.btn_inventory, 2)");
-    await page.click(":nth-match(.btn_primary.btn_inventory, 3)");
+    await hoverAndAddToCart(page, ".inventory_item:nth-child(1)");
+    await hoverAndAddToCart(page, ".inventory_item:nth-child(2)");
+    await hoverAndAddToCart(page, ".inventory_item:nth-child(3)");
 
     /**
      * verify cart count equals to 3
