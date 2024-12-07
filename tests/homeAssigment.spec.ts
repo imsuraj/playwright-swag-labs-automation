@@ -1,7 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
 import { faker } from "@faker-js/faker";
-import { argosScreenshot } from "@argos-ci/playwright";
-
 
 /**
  * initialize necessary variable that are required for the test
@@ -132,7 +130,6 @@ test.describe("Swag Labs Test Suite", () => {
     const errorMessage = page.locator('[data-test="error"]');
     await expect(errorMessage).toBeVisible();
     await expect(errorMessage).toHaveText(MESSAGES.INVALID_LOGIN);
-    await argosScreenshot(page, "sc1");
 
     /**
      * verify that the user is not redirected to the inventory page
@@ -153,7 +150,6 @@ test.describe("Swag Labs Test Suite", () => {
      * click the login button
      */
     await page.click("#login-button");
-    await argosScreenshot(page, "sc2");
 
     /**
      * verify that the user is successfully logged in and redirected to the inventory page
