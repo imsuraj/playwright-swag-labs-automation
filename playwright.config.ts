@@ -29,6 +29,7 @@ export default defineConfig({
       {
         // Upload to Argos on CI only.
         uploadToArgos: !!process.env.CI,
+        token: 'ARGOS_TOKEN=11ed09c336dbfd25e5f816efb604bc9084f8a9ac'
       },
     ],
     ["html", { outputFolder: "playwright-report" }],
