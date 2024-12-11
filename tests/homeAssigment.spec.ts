@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker";
 /**
  * initialize necessary variable that are required for the test
  */
-const BASE_URL = "https://www.saucedemo.com/v1";
+const BASE_URL = 'https://www.saucedemo.com/v1';
 const USERS = {
   LOCKED_OUT: { username: "locked_out_user", password: "secret_sauce" },
   STANDARD: { username: "standard_user", password: "secret_sauce" },
